@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+
+  banco-de-dados-dev:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: dev
+      POSTGRES_USER: dev
+      POSTGRES_DB: dev
+    volumes:
+      - ./database/tabelas.sql:/docker-entrypoint-initdb.d/tabelas.sql
+      - banco-de-dados-dev-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9090:8080
+
+volumes:
+  banco-de-dados-dev-volume:
