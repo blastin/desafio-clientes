@@ -1,4 +1,4 @@
-package br.projeto.desafio.spring.infraestrutura;
+package br.projeto.desafio.spring.web;
 
 import lombok.Value;
 

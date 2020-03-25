@@ -1,437 +1,443 @@
 {
-  "info": {
-    "_postman_id": "e9cad132-4f06-4bc2-9e22-dd243e6060a5",
-    "name": "Desafio",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "OBTER CLIENTES :: VAZIO",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "de26991c-2414-429e-a274-12d452b4d9dd",
-            "exec": [
-              "pm.test(\"Status deve ser 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "pm.test(\"Array deve ser vazio\", function () {",
-              "    pm.expect(pm.response.json().length).to.equal(0);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{API}}/clientes",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "NOVO CLIENTE",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "a86bd813-53ee-49bb-a2f2-69e3bb393ad5",
-            "exec": [
-              "pm.test(\"Cliente cadastrado deve retornar 201\", function () {",
-              "    pm.expect(pm.response.code).to.be.equals(201);",
-              "});",
-              "pm.test(\"Deve retornar CPF\", function () {",
-              "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.cpf).to.eql(pm.variables.get(\"CPF\"));",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": " {\r\n    \"nome\": \"Nascimento Filho\",\r\n    \"dataNascimento\": \"{{DATA_NASCIMENTO}}\",\r\n    \"cpf\": \"{{CPF}}\",\r\n    \"endereco\": {\r\n      \"logradouro\": \"Avenida Flores\",\r\n      \"complemento\": \"34W\",\r\n      \"numero\": 521\r\n    }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{API}}/clientes",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "OBTER CLIENTES",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "de26991c-2414-429e-a274-12d452b4d9dd",
-            "exec": [
-              "pm.test(\"Status deve ser 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "pm.test(\"Array deve ter apenas 1\", function () {",
-              "    pm.expect(pm.response.json().length).to.equal(1);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{API}}/clientes",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "NOVO CLIENTE :: DUPLICADO",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "a86bd813-53ee-49bb-a2f2-69e3bb393ad5",
-            "exec": [
-              "pm.test(\"Deve retornar status de conflito\", function () {",
-              "    pm.expect(pm.response.code).to.be.equals(409);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": " {\r\n    \"nome\": \"Nascimento Filho\",\r\n    \"dataNascimento\": \"{{DATA_NASCIMENTO}}\",\r\n    \"cpf\": \"{{CPF}}\",\r\n    \"endereco\": {\r\n      \"logradouro\": \"Avenida Flores\",\r\n      \"complemento\": \"34W\",\r\n      \"numero\": 521\r\n    }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{API}}/clientes",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "OBTER CLIENTE POR CPF",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "de26991c-2414-429e-a274-12d452b4d9dd",
-            "exec": [
-              "pm.test(\"Status deve ser 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "pm.test(\"Deve retornar CPF\", function () {",
-              "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.cpf).to.eql(pm.variables.get(\"CPF\"));",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{API}}/clientes/{{CPF}}",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes",
-            "{{CPF}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "ATUALIZAR CLIENTE POR CPF",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "de26991c-2414-429e-a274-12d452b4d9dd",
-            "exec": [
-              "pm.test(\"Status deve ser 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "pm.test(\"Deve retornar CPF igual\", function () {",
-              "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.cpf).to.eql(pm.variables.get(\"CPF\"));",
-              "});",
-              "",
-              "pm.test(\"Deve retornar data de nascimento atualizada\", function () {",
-              "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.dataNascimento).to.eql(pm.variables.get(\"DATA_NASCIMENTO_NOVO\"));",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": " {\r\n    \"nome\": \"Nascimento Filho\",\r\n    \"dataNascimento\": \"{{DATA_NASCIMENTO_NOVO}}\",\r\n    \"cpf\": \"{{CPF}}\",\r\n    \"endereco\": {\r\n      \"logradouro\": \"Avenida Flores\",\r\n      \"complemento\": \"34W\",\r\n      \"numero\": 522\r\n    }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{API}}/clientes/{{CPF}}",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes",
-            "{{CPF}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "REMOVER CLIENTE POR CPF",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "0fe8925c-ebb0-454c-af94-8c713ec5d42d",
-            "exec": [
-              "pm.test(\"Successful POST request\", function () {",
-              "    pm.expect(pm.response.code).to.be.equals(200);",
-              "});",
-              "pm.test(\"Deve retornar CPF\", function () {",
-              "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.cpf).to.eql(pm.variables.get(\"CPF\"));",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "{{API}}/clientes/{{CPF}}",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes",
-            "{{CPF}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "REMOVER CLIENTE POR CPF :: INEXISTENTE",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "0fe8925c-ebb0-454c-af94-8c713ec5d42d",
-            "exec": [
-              "pm.test(\"Deve retornar no content quando removo cliente por cpf inexistente\", function () {",
-              "    pm.expect(pm.response.code).to.be.equals(204);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "{{API}}/clientes/{{CPF}}",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes",
-            "{{CPF}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "ATUALIZAR CLIENTE POR CPF :: INEXISTENTE",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "de26991c-2414-429e-a274-12d452b4d9dd",
-            "exec": [
-              "pm.test(\"Deve retornar 204 quando tento atualizar cliente por cpf inexistente\", function () {",
-              "    pm.expect(pm.response.code).to.be.equals(204);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": " {\r\n    \"nome\": \"Nascimento Filho\",\r\n    \"dataNascimento\": \"{{DATA_NASCIMENTO_NOVO}}\",\r\n    \"cpf\": \"{{CPF}}\",\r\n    \"endereco\": {\r\n      \"logradouro\": \"Avenida Flores\",\r\n      \"complemento\": \"34W\",\r\n      \"numero\": 522\r\n    }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{API}}/clientes/{{CPF}}",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes",
-            "{{CPF}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "OBTER CLIENTE POR CPF :: INEXISTENTE",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "de26991c-2414-429e-a274-12d452b4d9dd",
-            "exec": [
-              "pm.test(\"OBTER CLIENTE POR CPF INEXISTENTE DEVE RETORNAR NAO ENCONTRADO\", function () {",
-              "    pm.expect(pm.response.code).to.be.equals(404);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{API}}/clientes/{{CPF}}",
-          "host": [
-            "{{API}}"
-          ],
-          "path": [
-            "clientes",
-            "{{CPF}}"
-          ]
-        }
-      },
-      "response": []
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "id": "6ccf2b78-fe3f-4552-8358-01e3edeec9c6",
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "id": "334eac15-e7ba-40cc-9fe4-4f8d104a78f6",
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "id": "40bcbd8d-d2f7-498a-b370-974ee5eaf024",
-      "key": "LOCALHOST",
-      "value": "localhost:8081",
-      "type": "string"
-    },
-    {
-      "id": "e4964b2e-a855-4ae0-94ad-f60ace62cb4f",
-      "key": "CPF",
-      "value": "61505756910",
-      "type": "string"
-    },
-    {
-      "id": "5a131b28-4752-4417-9663-6574531a06e7",
-      "key": "DATA_NASCIMENTO",
-      "value": "02/11/1999",
-      "type": "string"
-    },
-    {
-      "id": "00d3db6e-f0ed-4f2f-b49f-33caca7c0351",
-      "key": "DATA_NASCIMENTO_NOVO",
-      "value": "02/11/2000",
-      "type": "string"
-    }
-  ],
-  "protocolProfileBehavior": {}
+	"info": {
+		"_postman_id": "e9cad132-4f06-4bc2-9e22-dd243e6060a5",
+		"name": "Desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OBTER CLIENTES :: VAZIO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de26991c-2414-429e-a274-12d452b4d9dd",
+						"exec": [
+							"pm.test(\"Status deve ser 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Array deve ser vazio\", function () {",
+							"    pm.expect(pm.response.json().length).to.equal(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API}}/clientes",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NOVO CLIENTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a86bd813-53ee-49bb-a2f2-69e3bb393ad5",
+						"exec": [
+							"pm.test(\"Cliente cadastrado deve retornar 201\", function () {",
+							"    pm.expect(pm.response.code).to.be.equals(201);",
+							"});",
+							"pm.test(\"Deve retornar CPF\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cpf).to.eql(pm.variables.get(\"CPF\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"nome\": \"Nascimento Filho\",\r\n    \"dataNascimento\": \"{{DATA_NASCIMENTO}}\",\r\n    \"cpf\": \"{{CPF}}\",\r\n    \"endereco\": {\r\n      \"logradouro\": \"Avenida Flores\",\r\n      \"complemento\": \"34W\",\r\n      \"numero\": 521\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API}}/clientes",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OBTER CLIENTES",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de26991c-2414-429e-a274-12d452b4d9dd",
+						"exec": [
+							"pm.test(\"Status deve ser 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Array deve ter apenas 1\", function () {",
+							"    pm.expect(pm.response.json().length).to.equal(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API}}/clientes",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NOVO CLIENTE :: DUPLICADO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a86bd813-53ee-49bb-a2f2-69e3bb393ad5",
+						"exec": [
+							"pm.test(\"Deve retornar status de conflito\", function () {",
+							"    pm.expect(pm.response.code).to.be.equals(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"nome\": \"Nascimento Filho\",\r\n    \"dataNascimento\": \"{{DATA_NASCIMENTO}}\",\r\n    \"cpf\": \"{{CPF}}\",\r\n    \"endereco\": {\r\n      \"logradouro\": \"Avenida Flores\",\r\n      \"complemento\": \"34W\",\r\n      \"numero\": 521\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API}}/clientes",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OBTER CLIENTE POR CPF",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de26991c-2414-429e-a274-12d452b4d9dd",
+						"exec": [
+							"pm.test(\"Status deve ser 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Deve retornar CPF\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cpf).to.eql(pm.variables.get(\"CPF\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API}}/clientes/{{CPF}}",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes",
+						"{{CPF}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ATUALIZAR CLIENTE POR CPF",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de26991c-2414-429e-a274-12d452b4d9dd",
+						"exec": [
+							"pm.test(\"Status deve ser 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Deve retornar CPF igual\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cpf).to.eql(pm.variables.get(\"CPF\"));",
+							"});",
+							"",
+							"pm.test(\"Deve retornar data de nascimento atualizada\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.dataNascimento).to.eql(pm.variables.get(\"DATA_NASCIMENTO_NOVO\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"nome\": \"Nascimento Filho\",\r\n    \"dataNascimento\": \"{{DATA_NASCIMENTO_NOVO}}\",\r\n    \"cpf\": \"{{CPF}}\",\r\n    \"endereco\": {\r\n      \"logradouro\": \"Avenida Flores\",\r\n      \"complemento\": \"34W\",\r\n      \"numero\": 522\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API}}/clientes/{{CPF}}",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes",
+						"{{CPF}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REMOVER CLIENTE POR CPF",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0fe8925c-ebb0-454c-af94-8c713ec5d42d",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.equals(200);",
+							"});",
+							"pm.test(\"Deve retornar CPF\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cpf).to.eql(pm.variables.get(\"CPF\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{API}}/clientes/{{CPF}}",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes",
+						"{{CPF}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REMOVER CLIENTE POR CPF :: INEXISTENTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0fe8925c-ebb0-454c-af94-8c713ec5d42d",
+						"exec": [
+							"pm.test(\"Deve retornar no content quando removo cliente por cpf inexistente\", function () {",
+							"    pm.expect(pm.response.code).to.be.equals(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{API}}/clientes/{{CPF}}",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes",
+						"{{CPF}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ATUALIZAR CLIENTE POR CPF :: INEXISTENTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de26991c-2414-429e-a274-12d452b4d9dd",
+						"exec": [
+							"pm.test(\"Deve retornar 204 quando tento atualizar cliente por cpf inexistente\", function () {",
+							"    pm.expect(pm.response.code).to.be.equals(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"nome\": \"Nascimento Filho\",\r\n    \"dataNascimento\": \"{{DATA_NASCIMENTO_NOVO}}\",\r\n    \"cpf\": \"{{CPF}}\",\r\n    \"endereco\": {\r\n      \"logradouro\": \"Avenida Flores\",\r\n      \"complemento\": \"34W\",\r\n      \"numero\": 522\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API}}/clientes/{{CPF}}",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes",
+						"{{CPF}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OBTER CLIENTE POR CPF :: INEXISTENTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de26991c-2414-429e-a274-12d452b4d9dd",
+						"exec": [
+							"pm.test(\"OBTER CLIENTE POR CPF INEXISTENTE DEVE RETORNAR NAO ENCONTRADO\", function () {",
+							"    pm.expect(pm.response.code).to.be.equals(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API}}/clientes/{{CPF}}",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"clientes",
+						"{{CPF}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6ccf2b78-fe3f-4552-8358-01e3edeec9c6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "334eac15-e7ba-40cc-9fe4-4f8d104a78f6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0461b28b-6361-44d7-bdd6-f2d8272ac161",
+			"key": "LOCALHOST",
+			"value": "localhost:8081",
+			"type": "string"
+		},
+		{
+			"id": "a54f8a89-47dd-48b9-99f9-0684cc7cf1e1",
+			"key": "CPF",
+			"value": "61505756910",
+			"type": "string"
+		},
+		{
+			"id": "02caad4e-5acb-4d02-bf3c-a4e5d01008bd",
+			"key": "DATA_NASCIMENTO",
+			"value": "02/11/1999",
+			"type": "string"
+		},
+		{
+			"id": "9ca1daff-50ac-42c5-8b8f-12aeea101a24",
+			"key": "DATA_NASCIMENTO_NOVO",
+			"value": "02/11/2000",
+			"type": "string"
+		},
+		{
+			"id": "5d6762f8-38df-4fe2-9d63-6e92a3b67bff",
+			"key": "CONTAINER",
+			"value": "localhost:7080",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
 }
