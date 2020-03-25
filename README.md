@@ -45,3 +45,26 @@ A API pode ser visualizada com swagger-ui. Basta acessar as seguintes url
 
     [localhost] = http://localhost:8081/api/swagger-ui.html
     [docker] = http://localhost:7080/api/swagger-ui.html
+    
+
+Ambiente Desenvolvimento:
+
+Caso queira subir um container de banco de dados:
+
+```shell script
+
+docker-compose -f docker-compose-dev.yml up
+
+```
+    
+Caso queira osquestrar banco de dados já incluido o proprio serviço : 
+ 
+ ```shell script
+   
+  mvnw clean package
+   
+  docker-compose -f docker-compose.yml up --build
+    
+ ``` 
+                                        
+    
