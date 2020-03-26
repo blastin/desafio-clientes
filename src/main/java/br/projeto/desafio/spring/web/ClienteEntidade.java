@@ -19,7 +19,6 @@ import java.util.UUID;
 @NoArgsConstructor
 final class ClienteEntidade implements Cliente {
 
-    @Setter(AccessLevel.PACKAGE)
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id

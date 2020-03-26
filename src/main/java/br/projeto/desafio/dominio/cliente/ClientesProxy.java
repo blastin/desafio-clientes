@@ -77,7 +77,27 @@ final class ClientesProxy implements ClientesGateway {
                     String.format("nao foi possivel atualizar cliente com cpf = %s", cpf));
         }
 
-        final Cliente clienteParaAtualizar = new ClienteAdaptador(cliente, optionalClienteEntidade.get());
+        final Endereco endereco = cliente.getEndereco();
+
+        final Cliente clienteObtido = optionalClienteEntidade.get();
+
+        final Endereco enderecoObtido = clienteObtido.getEndereco();
+
+        final Cliente clienteParaAtualizar =
+                new ClienteConstrutor()
+                        .comID(clienteObtido.getId())
+                        .comNome(cliente.getNome())
+                        .comCpf(cpf)
+                        .comDataNascimento(cliente.getDataNascimento())
+                        .paraEndereco(
+                                new EnderecoConstrutor()
+                                        .comId(enderecoObtido.getId())
+                                        .comLogradouro(endereco.getLogradouro())
+                                        .comComplemento(endereco.getComplemento())
+                                        .comNumero(endereco.getNumero())
+                                        .construir()
+                        ).construir();
+
 
         return clientesGateway.atualizarCliente(cpf, clienteParaAtualizar);
 

@@ -187,7 +187,24 @@ public class ClientesGatewayTest {
     }
 
     private Cliente construirCliente() {
-        return new ClienteAdaptador(new ClienteParaTeste(random));
+
+        final Cliente clienteParaTeste = new ClienteParaTeste(random);
+
+        final Endereco endereco = clienteParaTeste.getEndereco();
+
+        return new ClienteConstrutor()
+                .comID(clienteParaTeste.getId())
+                .comCpf(clienteParaTeste.getCpf())
+                .comDataNascimento(clienteParaTeste.getDataNascimento())
+                .comNome(clienteParaTeste.getNome())
+                .paraEndereco(
+                        new EnderecoConstrutor()
+                                .comId(endereco.getId())
+                                .comNumero(endereco.getNumero())
+                                .comComplemento(endereco.getComplemento())
+                                .comLogradouro(endereco.getLogradouro())
+                                .construir()
+                ).construir();
     }
 
 }

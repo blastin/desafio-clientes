@@ -7,7 +7,7 @@ public interface Endereco {
 
     @SuppressWarnings("unused")
     default UUID getId() {
-        return UUID.randomUUID();
+        throw new IllegalCallerException("Endereco nao deveria retornar ID diretamente");
     }
 
     String getLogradouro();

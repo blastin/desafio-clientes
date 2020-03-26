@@ -1,10 +1,8 @@
 package br.projeto.desafio.spring.web;
 
 import br.projeto.desafio.dominio.cliente.Endereco;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -17,11 +15,10 @@ import java.util.UUID;
 @NoArgsConstructor
 final class EnderecoEntidade implements Endereco {
 
-    @Setter(AccessLevel.PACKAGE)
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID uuid;
+    private UUID id;
 
     @NotNull
     @Column(name = "logradouro")
