@@ -39,4 +39,11 @@ final class EnderecoEntidade implements Endereco {
         numero = endereco.getNumero();
     }
 
+    EnderecoEntidade(final UUID id, final Endereco endereco) {
+        this.id = id;
+        logradouro = endereco.getLogradouro();
+        complemento = endereco.getComplemento();
+        numero = endereco.getNumero();
+    }
+
 }

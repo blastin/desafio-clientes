@@ -52,7 +52,8 @@ final class EnderecoConstrutor {
         @Override
         public String toString() {
             return "{" +
-                   "logradouro='" + logradouro + '\'' +
+                   "id=" + id +
+                   ", logradouro='" + logradouro + '\'' +
                    ", complemento='" + complemento + '\'' +
                    ", numero=" + numero +
                    '}';

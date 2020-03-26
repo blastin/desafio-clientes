@@ -1,10 +1,8 @@
 package br.projeto.desafio.spring.web;
 
 import br.projeto.desafio.dominio.cliente.Cliente;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -20,8 +18,8 @@ import java.util.UUID;
 final class ClienteEntidade implements Cliente {
 
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @NotNull
@@ -55,11 +53,11 @@ final class ClienteEntidade implements Cliente {
     }
 
     ClienteEntidade(final String cpf, final Cliente cliente) {
+        id = cliente.getId();
         this.cpf = cpf;
         nome = cliente.getNome();
         dataNascimento = cliente.getDataNascimento();
-        endereco = new EnderecoEntidade(cliente.getEndereco());
+        endereco = new EnderecoEntidade(cliente.getId(), cliente.getEndereco());
         status = StatusCliente.ATIVO;
-        id = cliente.getId();
     }
 }
