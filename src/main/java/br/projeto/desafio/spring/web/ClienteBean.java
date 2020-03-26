@@ -13,7 +13,8 @@ class ClienteBean {
     @Bean
     @Primary
     ClientesGateway clientesGateway(final ClienteRepositorio repositorio, final StatusResposta statusResposta) {
-        return ClientesFabrica.construir(new ClienteServico(repositorio), statusResposta);
+        final ClienteServico servico = new ClienteServico(repositorio);
+        return ClientesFabrica.construir(new ClientesLog(servico), statusResposta);
     }
 
     @Bean

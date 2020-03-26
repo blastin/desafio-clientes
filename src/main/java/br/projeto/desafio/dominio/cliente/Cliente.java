@@ -3,6 +3,7 @@ package br.projeto.desafio.dominio.cliente;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Adaptador
 public interface Cliente {
 
     @SuppressWarnings("unused")

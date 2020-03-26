@@ -1,7 +1,6 @@
 package br.projeto.desafio.spring.web;
 
 import br.projeto.desafio.dominio.cliente.Cliente;
-import br.projeto.desafio.dominio.cliente.StatusCliente;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

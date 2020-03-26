@@ -2,7 +2,6 @@ package br.projeto.desafio.spring.web;
 
 import br.projeto.desafio.dominio.cliente.Cliente;
 import br.projeto.desafio.dominio.cliente.ClientesGateway;
-import br.projeto.desafio.dominio.cliente.StatusCliente;
 
 import java.util.Collection;
 
